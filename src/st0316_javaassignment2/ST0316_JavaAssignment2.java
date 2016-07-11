@@ -13,10 +13,32 @@ package st0316_javaassignment2;
 public class ST0316_JavaAssignment2 {
 
     /**
-     * @param args the command line arguments
+     * @param args the command line argument
      */
     public static void main(String[] args) {
         System.out.println("TESTING");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
+        System.out.println("MARCUS");
         System.out.println("MARCUS");
     }
     
