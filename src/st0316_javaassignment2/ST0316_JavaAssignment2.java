@@ -7,8 +7,8 @@ package st0316_javaassignment2;
 
 /**
  *
- * @author Marcus Tan
- *         Theodoric Keith Lim
+ * @author Marcus Tan           - 1448892
+ *         Theodoric Keith Lim  - 1431223
  */
 public class ST0316_JavaAssignment2 {
 
@@ -17,6 +17,7 @@ public class ST0316_JavaAssignment2 {
      */
     public static void main(String[] args) {
         System.out.println("TESTING");
+        System.out.println("MARCUS");
     }
     
 }
