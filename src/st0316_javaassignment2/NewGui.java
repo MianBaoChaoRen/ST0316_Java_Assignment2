@@ -5,12 +5,26 @@
  */
 package st0316_javaassignment2;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Marcus Tan
  */
 public class NewGui extends javax.swing.JFrame {
 
+    WebpagesContainer webpages = new WebpagesContainer();
+    
     /**
      * Creates new form NewGui
      */
@@ -55,16 +69,17 @@ public class NewGui extends javax.swing.JFrame {
         Thread2Label = new javax.swing.JLabel();
         Thread3Label = new javax.swing.JLabel();
         Thread4Label = new javax.swing.JLabel();
-        Thread1TF = new javax.swing.JTextField();
-        Thread2TF = new javax.swing.JTextField();
-        Thread3TF = new javax.swing.JTextField();
-        Thread4TF = new javax.swing.JTextField();
+        Thread1TA = new java.awt.TextArea();
+        Thread2TA = new java.awt.TextArea();
+        Thread4TA = new java.awt.TextArea();
+        Thread3TA = new java.awt.TextArea();
         URLPanel = new javax.swing.JPanel();
         URLLabel = new javax.swing.JLabel();
         UrlTA = new java.awt.TextArea();
         StatusPanel = new javax.swing.JPanel();
         StatusTA = new java.awt.TextArea();
         jPanel1 = new javax.swing.JPanel();
+        jFileChooser1 = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,17 +150,13 @@ public class NewGui extends javax.swing.JFrame {
         Thread4Label.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         Thread4Label.setText("Thread 4: ");
 
-        Thread1TF.setEditable(false);
-        Thread1TF.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        Thread1TA.setEditable(false);
 
-        Thread2TF.setEditable(false);
-        Thread2TF.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        Thread2TA.setEditable(false);
 
-        Thread3TF.setEditable(false);
-        Thread3TF.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        Thread4TA.setEditable(false);
 
-        Thread4TF.setEditable(false);
-        Thread4TF.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        Thread3TA.setEditable(false);
 
         javax.swing.GroupLayout ThreadPanelLayout = new javax.swing.GroupLayout(ThreadPanel);
         ThreadPanel.setLayout(ThreadPanelLayout);
@@ -154,37 +165,37 @@ public class NewGui extends javax.swing.JFrame {
             .addGroup(ThreadPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Thread2Label)
                     .addComponent(Thread4Label)
                     .addComponent(Thread3Label)
-                    .addComponent(Thread2Label)
-                    .addComponent(Thread1Label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(Thread1Label, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Thread1TF)
-                    .addComponent(Thread2TF)
-                    .addComponent(Thread3TF)
-                    .addComponent(Thread4TF))
+                    .addComponent(Thread1TA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Thread2TA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Thread4TA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Thread3TA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         ThreadPanelLayout.setVerticalGroup(
             ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ThreadPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Thread1Label)
-                    .addComponent(Thread1TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(Thread1TA, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Thread2Label)
-                    .addComponent(Thread2TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(Thread2TA, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Thread3Label)
-                    .addComponent(Thread3TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Thread3TA, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Thread4Label)
-                    .addComponent(Thread4TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(ThreadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Thread4TA, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Thread4Label))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -195,7 +206,6 @@ public class NewGui extends javax.swing.JFrame {
         URLLabel.setText("List of URLs");
 
         UrlTA.setEditable(false);
-        UrlTA.setEnabled(false);
 
         javax.swing.GroupLayout URLPanelLayout = new javax.swing.GroupLayout(URLPanel);
         URLPanel.setLayout(URLPanelLayout);
@@ -234,19 +244,30 @@ public class NewGui extends javax.swing.JFrame {
         StatusPanelLayout.setVerticalGroup(
             StatusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StatusPanelLayout.createSequentialGroup()
-                .addComponent(StatusTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(StatusTA, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jFileChooser1.setAcceptAllFileFilterUsed(false);
+        jFileChooser1.setCurrentDirectory(new java.io.File("D:\\Y3S1\\Advanced Java Programming\\AJP Assignment 2\\MYOWNAssignment\\SER"));
+        jFileChooser1.setDialogTitle("");
+        jFileChooser1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
@@ -256,9 +277,11 @@ public class NewGui extends javax.swing.JFrame {
             .addComponent(SearchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(ThreadPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(MainPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(URLPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addComponent(StatusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         MainPanelLayout.setVerticalGroup(
@@ -267,12 +290,12 @@ public class NewGui extends javax.swing.JFrame {
                 .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ThreadPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(URLPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(StatusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(URLPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(StatusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,8 +315,120 @@ public class NewGui extends javax.swing.JFrame {
     private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
         String searchString = SearchTF.getText(); // Search string
         int numOfWebpages = Integer.parseInt(PagesChoice.getSelectedItem()); // Can set number of pages
+        int UrlCounter = 1;
+        // Replaces all spaces, with + because of the search engines
+        // BUT. if bing, need change to &20 or something like that. but we using
+        // Yahoo and Google for now.
+        if(searchString.contains(" ")) searchString = searchString.replaceAll("(\\s+)|(\\n)", "+"); 
+        
+        // Thread in an array for 2 search engines
+        // For maybe advanced feature got something around here we can do /*ignore first*/
+        Thread [] tA = new Thread[2]; 
+        
+        StatusTA.append("\nYour Search String is: " + searchString + "\n\n");
+        
+        for(int i=1; i<=2; i++){
+            String searchEngine = ""; // google
+            if (i==1){
+                searchEngine = "Google"; // google
+                
+                StatusTA.append("Passing search to:" + searchEngine +"\n");
+                
+                // Refer to class file SetSearch
+                // Note : We are passing the shared resource WebpagesContainer (also a created class) into
+                //        the SetSearch. More will be said in the SetSearch. Maybe good idea to continue
+                //        Understanding in the SetSearch, explain there easier.
+                SetSearch ss = new SetSearch(searchString, searchEngine, numOfWebpages, webpages);
+                StatusTA.append("Search Received by Google! \n\n");
+                
+                tA[i-1] = new Thread(ss, "Google");
+            } if(i==2) {
+                searchEngine = "Bing"; // yahoo
+                
+                StatusTA.append("Passing search to:" + searchEngine +"\n");
+                
+                // Refer to class file SetSearch
+                // Note : We are passing the shared resource WebpagesContainer (also a created class) into
+                //        the SetSearch. More will be said in the SetSearch. Maybe good idea to continue
+                //        Understanding in the SetSearch, explain there easier.
+                SetSearch ss = new SetSearch(searchString, searchEngine, numOfWebpages, webpages);
+                StatusTA.append("Search Received by Yahoo! \n\n");
+                
+                tA[i-1] = new Thread(ss, "Bing");
+            }
+        }
+        
+        tA[0].start();
+        tA[1].start();
+       
+        StatusTA.append("Adding Web Url into Queue \n");
+        StatusTA.append("\nPlease wait for a moment. Thank you. \n\n");
+        
+        String currentPage1 = QueueAdd.getCurrentPage();
+        while(tA[0].isAlive() || tA[1].isAlive()){
+            String currentPage2 = QueueAdd.getCurrentPage();
+            while(!currentPage1.equals(currentPage2 = QueueAdd.getCurrentPage())){
+                currentPage1 = currentPage2;
+                String CurrentThread = SetSearch.getCurrentThreadName();
+                
+                UrlTA.append(UrlCounter + ": " + " (" + CurrentThread + ") " + currentPage1 + "\n");
+                
+                
+                if (CurrentThread.equals("Bing")){
+                    Thread1TA.append("\n\n Inserting Url Number:" + UrlCounter + " into queue from " + CurrentThread);
+                } else if (CurrentThread.equals("Google")){
+                    Thread2TA.append("\n\n Inserting Url Number:" + UrlCounter + " into queue from " + CurrentThread);
+                }
+                UrlCounter++;
+            }
+        }
+
         
         
+        for(int i=0; i<tA.length; i++){
+            try {
+                // Thread joining would mean that only after all these threads are done
+                // Than it will continue the rest of the code below. In our case is the
+                // Serialisation i put below
+                tA[i].join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(NewGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        // SERIALISATION PART. Both the exporting and importing test. It works
+        System.out.println("");
+        Queue<Webpage> savedWebpages = new LinkedList<>();  // For printing
+        try{
+            int webPagecounter = 1;
+            
+            FileOutputStream fos = new FileOutputStream("savedWebpages.ser");
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(webpages); // Write object method is special, refer the WebpagesContainer
+            os.close();
+
+            FileInputStream fis = new FileInputStream("savedWebpages.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            WebpagesContainer wc = (WebpagesContainer)ois.readObject(); // Read object method is special, refer the WebpagesContainer
+            savedWebpages = wc.getSavedWebpages();
+            for (Webpage webpage : savedWebpages) {
+                // Check if the HTML went through so i dont need to visually check it
+                // IF not empty wont print. Should have 12. or whatever num of webpages
+                if(!webpage.getWebHTML().equals(""))System.out.println(webpage.getWebName()); 
+
+                String BatFilecontent = "start "+webpage.getWebName();
+                String OfflineFilecontent = webpage.getWebHTML();
+                
+                WriteIntoFile WriteIntoFile = new WriteIntoFile(searchString, webPagecounter, OfflineFilecontent, BatFilecontent);
+                 
+                WriteIntoFile.CreateOfflineFile();
+                WriteIntoFile.CreateBatFile();
+                
+                webPagecounter++;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         
     }//GEN-LAST:event_SearchBtnActionPerformed
 
@@ -323,6 +458,9 @@ public class NewGui extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(NewGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -343,17 +481,18 @@ public class NewGui extends javax.swing.JFrame {
     private javax.swing.JPanel StatusPanel;
     private java.awt.TextArea StatusTA;
     private javax.swing.JLabel Thread1Label;
-    private javax.swing.JTextField Thread1TF;
+    private java.awt.TextArea Thread1TA;
     private javax.swing.JLabel Thread2Label;
-    private javax.swing.JTextField Thread2TF;
+    private java.awt.TextArea Thread2TA;
     private javax.swing.JLabel Thread3Label;
-    private javax.swing.JTextField Thread3TF;
+    private java.awt.TextArea Thread3TA;
     private javax.swing.JLabel Thread4Label;
-    private javax.swing.JTextField Thread4TF;
+    private java.awt.TextArea Thread4TA;
     private javax.swing.JPanel ThreadPanel;
     private javax.swing.JLabel URLLabel;
     private javax.swing.JPanel URLPanel;
     private java.awt.TextArea UrlTA;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

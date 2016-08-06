@@ -23,26 +23,10 @@ public class GetHTML {
     private static String currentPage = "";
     
     public static String getHTML(String pageAddr) {
-        // Counter used to keep track of the protocol additions used
-        // 0 = No protocol addition needed
-        //               OR
-        // 0 = add http:// when "https://" is not present
-        // 1 = add https:// when "https://" is not present
-        // Codes seen in lines 36 to 41
-        int count = 0; 
-        
         StringBuilder sb = new StringBuilder(); // StringBuilder because it is not synchronized, therefore it is faster
-        String protocol = "";
-        while (sb.toString().equals("") && count < 2) { // Note: While Loop using count && Try Catch only returns "" when count==2
             try {
                 URL url = null;
-                if (!pageAddr.contains("https://")) {
-                    if(count==0){
-                        protocol = "http://";
-                        count++;
-                    }else if(count==1) protocol = "https://";
-                }
-                url = new URL(protocol + pageAddr);
+                url = new URL(pageAddr);
                 currentPage = url.toString();
                 URLConnection conn = url.openConnection();
                 conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
@@ -54,13 +38,10 @@ public class GetHTML {
                 }
                 reader.close();
             } catch (MalformedURLException e) {
-                e.printStackTrace();
-                if(count==2)return "";
+                return "";
             } catch (IOException e) {
-                e.printStackTrace();
-                if(count==2)return "";
+                return "";
             }
-        }
         return sb.toString();
     }
     

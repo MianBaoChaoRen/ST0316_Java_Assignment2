@@ -60,23 +60,8 @@ public class WebpagesContainer implements Serializable{
         return tmpHold.contains(webURL);
     }
     
-    public void add(String webpage){
-        String webHTML = "";
-        // This thread starts the reading of the HTML code from the
-        // gathered websites. This thread will be started the instance
-        // a webpage is found in the search results from the search Engine
-        // NOTE : CAN BE DONE BETTER HERE 
-        // INNER CLASS???????
-        // Efficiency point.. Currently about 13s to 12s run time
-        Thread t = new Thread(webHTML = GetHTML.getHTML(webpage));
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(WebpagesContainer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // Page only added after HTML is gotten due to t.join();
-        savedWebpages.add(new Webpage(webpage, webHTML));
+    public void add(Webpage webpage){
+        savedWebpages.add(webpage);
     }
     
     public Queue<Webpage> getSavedWebpages(){
@@ -95,5 +80,6 @@ public class WebpagesContainer implements Serializable{
             throws IOException, ClassNotFoundException{
         ooi.defaultReadObject();
         this.savedWebpages = (Queue<Webpage>)ooi.readObject();
+        
     }    
 }
